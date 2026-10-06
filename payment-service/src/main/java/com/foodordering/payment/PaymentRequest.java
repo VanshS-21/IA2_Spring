@@ -1,0 +1,1 @@
+package com.foodordering.payment; import jakarta.validation.constraints.*; import java.math.BigDecimal; public record PaymentRequest(@NotNull Long orderId,@NotNull BigDecimal amount,String paymentMethod,Boolean simulateFailure){}

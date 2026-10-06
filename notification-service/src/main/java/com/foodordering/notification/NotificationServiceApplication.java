@@ -1,0 +1,1 @@
+package com.foodordering.notification; import org.springframework.boot.*; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication(scanBasePackages="com.foodordering") public class NotificationServiceApplication {public static void main(String[] a){SpringApplication.run(NotificationServiceApplication.class,a);}}

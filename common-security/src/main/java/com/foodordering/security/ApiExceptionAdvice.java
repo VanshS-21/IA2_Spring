@@ -1,0 +1,10 @@
+package com.foodordering.security;
+import jakarta.servlet.http.HttpServletRequest; import java.time.Instant; import java.util.*; import org.springframework.http.*; import org.springframework.web.HttpRequestMethodNotSupportedException; import org.springframework.web.bind.MethodArgumentNotValidException; import org.springframework.web.bind.annotation.*; import org.springframework.web.server.ResponseStatusException; import org.springframework.web.servlet.resource.NoResourceFoundException;
+@RestControllerAdvice public class ApiExceptionAdvice {
+ @ExceptionHandler(ResponseStatusException.class) ResponseEntity<Map<String,Object>> status(ResponseStatusException e,HttpServletRequest q){return body(e.getStatusCode(),e.getReason(),q);}
+ @ExceptionHandler(MethodArgumentNotValidException.class) ResponseEntity<Map<String,Object>> validation(MethodArgumentNotValidException e,HttpServletRequest q){String m=e.getBindingResult().getFieldErrors().stream().map(x->x.getField()+": "+x.getDefaultMessage()).findFirst().orElse("Validation failed");return body(HttpStatus.BAD_REQUEST,m,q);}
+ @ExceptionHandler(HttpRequestMethodNotSupportedException.class) ResponseEntity<Map<String,Object>> method(HttpRequestMethodNotSupportedException e,HttpServletRequest q){return body(HttpStatus.METHOD_NOT_ALLOWED,e.getMethod()+" is not supported for this endpoint",q);}
+ @ExceptionHandler(NoResourceFoundException.class) ResponseEntity<Map<String,Object>> missing(NoResourceFoundException e,HttpServletRequest q){return body(HttpStatus.NOT_FOUND,"Endpoint not found",q);}
+ @ExceptionHandler(Exception.class) ResponseEntity<Map<String,Object>> other(Exception e,HttpServletRequest q){return body(HttpStatus.INTERNAL_SERVER_ERROR,"Unexpected server error",q);}
+ private ResponseEntity<Map<String,Object>> body(HttpStatusCode s,String message,HttpServletRequest q){Map<String,Object> m=new LinkedHashMap<>();m.put("timestamp",Instant.now());m.put("status",s.value());m.put("error",HttpStatus.valueOf(s.value()).getReasonPhrase());m.put("message",message);m.put("path",q.getRequestURI());return ResponseEntity.status(s).body(m);}
+}

@@ -1,0 +1,1 @@
+package com.foodordering.gateway; import org.springframework.boot.*; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class GatewayApplication{public static void main(String[] a){SpringApplication.run(GatewayApplication.class,a);}}

@@ -1,0 +1,11 @@
+server: { port: 8080 }
+spring:
+  cloud:
+    gateway:
+      discovery: { locator: { enabled: false } }
+      routes:
+        - { id: user, uri: lb://user-service, predicates: ["Path=/users/**,/auth/**"] }
+        - { id: food, uri: lb://food-service, predicates: ["Path=/foods/**,/restaurants/**"] }
+        - { id: order, uri: lb://order-service, predicates: ["Path=/orders/**"] }
+        - { id: payment, uri: lb://payment-service, predicates: ["Path=/payments/**"] }
+        - { id: notification, uri: lb://notification-service, predicates: ["Path=/notifications/**"] }

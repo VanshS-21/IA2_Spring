@@ -1,0 +1,1 @@
+package com.foodordering.order; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; interface OrderRepository extends JpaRepository<FoodOrder,Long>{List<FoodOrder> findByCustomerId(Long id);}

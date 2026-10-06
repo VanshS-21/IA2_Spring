@@ -1,0 +1,31 @@
+eureka:
+  instance:
+    # All services run on this workstation for the local demonstration.
+    # Avoid Docker's 172.x virtual adapter being advertised to the gateway.
+    hostname: localhost
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,refresh
+jwt:
+  secret: VGhpc0lzQVN1ZmZpY2llbnRseUxvbmdCYXNlNjRFbmNvZGVkU2VjcmV0S2V5Rm9ySFMyNTY=
+  expiration-ms: 3600000
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 2000
+            readTimeout: 5000
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%X{correlationId:-}] %-5level %logger{36} - %msg%n"

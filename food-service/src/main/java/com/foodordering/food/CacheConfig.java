@@ -1,0 +1,3 @@
+package com.foodordering.food;
+import org.springframework.context.annotation.*; import org.springframework.data.redis.cache.*; import org.springframework.data.redis.connection.RedisConnectionFactory; import org.springframework.data.redis.serializer.*;
+@Configuration class CacheConfig {@Bean RedisCacheManager cacheManager(RedisConnectionFactory f){RedisCacheConfiguration c=RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));return RedisCacheManager.builder(f).cacheDefaults(c).build();}}

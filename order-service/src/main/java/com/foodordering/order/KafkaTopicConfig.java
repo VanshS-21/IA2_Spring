@@ -1,0 +1,1 @@
+package com.foodordering.order; import org.apache.kafka.clients.admin.NewTopic; import org.springframework.context.annotation.*; import org.springframework.kafka.config.TopicBuilder; @Configuration class KafkaTopicConfig{@Bean NewTopic orderCreated(){return TopicBuilder.name("order-created").partitions(3).replicas(1).build();}}

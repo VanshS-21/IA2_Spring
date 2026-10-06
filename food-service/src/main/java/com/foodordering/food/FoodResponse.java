@@ -1,0 +1,1 @@
+package com.foodordering.food; import java.io.Serializable; import java.math.BigDecimal; public record FoodResponse(Long foodId,String foodName,BigDecimal price,String category,boolean availability,Long restaurantId) implements Serializable {}

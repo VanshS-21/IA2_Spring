@@ -1,0 +1,1 @@
+spring: { application: { name: food-service }, config: { import: "configserver:http://localhost:8888" }, cloud: { config: { username: config, password: configpass, fail-fast: true } } }
